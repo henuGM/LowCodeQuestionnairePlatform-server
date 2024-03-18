@@ -52,4 +52,8 @@ int updateByStatement(@Param("question") Question question);
     @Select("SELECT * FROM question WHERE id = #{id}")
     Question findById(@Param("id") Integer id);
 
+@Delete("DELETE FROM question WHERE id = #{id}")
+int deleteById(@Param("id") Integer id);
+
+
 }

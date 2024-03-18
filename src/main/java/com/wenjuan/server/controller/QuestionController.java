@@ -29,10 +29,10 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String print(@PathVariable("id") String id) {
-        return id;
-    }
+//    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+//    public String print(@PathVariable("id") String id) {
+//        return id;
+//    }
 
     @PostMapping
     public Result createQuestion(@RequestHeader(name = "Authorization") String token){
@@ -100,6 +100,31 @@ public class QuestionController {
             return Result.success(null);
         } else {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to update the question");
+        }
+    }
+
+
+    @GetMapping("/{id}")
+    public Result<Question> getQuestionById(@PathVariable("id") Integer id) {
+        // 调用QuestionService中的方法获取问题数据
+        Question question = questionService.findById(id);
+
+        // 如果找到问题，则返回200状态码及问题数据
+        if (question != null) {
+            return Result.success(question);
+        } else {
+            // 如果未找到问题，则返回404状态码及错误信息（这里仅作示例）
+            return Result.error("123");
+        }
+    }
+
+    @DeleteMapping
+    public Result deleteQuestions(@RequestBody Integer[] ids) {
+        if (ids != null && ids.length > 0) {
+            questionService.deleteById(ids);
+            return Result.success( "批量删除成功");
+        } else {
+            return Result.error( "未提供要删除的问题ID");
         }
     }
 

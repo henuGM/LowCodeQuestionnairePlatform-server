@@ -16,4 +16,6 @@ public interface QuestionService {
     int updateQuestion(Question originalQuestion);
 
     Question findById(Integer id);
+
+    void deleteById(Integer[] ids);
 }

@@ -53,4 +53,13 @@ public class QuestionServiceImpl implements QuestionService {
     public Question findById(Integer id) {
         return questionMapper.findById(id); // 调用mapper中的findById方法
     }
+
+    @Override
+    public void deleteById(Integer[] ids) {
+        for (Integer id : ids) {
+            questionMapper.deleteById(id);
+        }
+    }
+
+
 }
